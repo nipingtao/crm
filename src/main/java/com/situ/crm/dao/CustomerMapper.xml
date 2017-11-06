@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.situ.crm.dao.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.situ.crm.pojo.Customer" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="manager_name" property="managerName" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="satisfy" property="satisfy" jdbcType="VARCHAR" />
+    <result column="credit" property="credit" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="post_code" property="postCode" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="fax" property="fax" jdbcType="VARCHAR" />
+    <result column="web_site" property="webSite" jdbcType="VARCHAR" />
+    <result column="licence_no" property="licenceNo" jdbcType="VARCHAR" />
+    <result column="legal_person" property="legalPerson" jdbcType="VARCHAR" />
+    <result column="bankroll" property="bankroll" jdbcType="VARCHAR" />
+    <result column="turnover" property="turnover" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="bank_account" property="bankAccount" jdbcType="VARCHAR" />
+    <result column="local_tax_no" property="localTaxNo" jdbcType="VARCHAR" />
+    <result column="national_tax_no" property="nationalTaxNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, num, name, region, manager_name, level, satisfy, credit, address, post_code, 
+    phone, fax, web_site, licence_no, legal_person, bankroll, turnover, bank_name, bank_account, 
+    local_tax_no, national_tax_no, status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.situ.crm.pojo.CustomerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from customer
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.situ.crm.pojo.CustomerExample" >
+    delete from customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.situ.crm.pojo.Customer" >
+    insert into customer (id, num, name, 
+      region, manager_name, level, 
+      satisfy, credit, address, 
+      post_code, phone, fax, 
+      web_site, licence_no, legal_person, 
+      bankroll, turnover, bank_name, 
+      bank_account, local_tax_no, national_tax_no, 
+      status)
+    values (#{id,jdbcType=INTEGER}, #{num,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{region,jdbcType=VARCHAR}, #{managerName,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
+      #{satisfy,jdbcType=VARCHAR}, #{credit,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{postCode,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{fax,jdbcType=VARCHAR}, 
+      #{webSite,jdbcType=VARCHAR}, #{licenceNo,jdbcType=VARCHAR}, #{legalPerson,jdbcType=VARCHAR}, 
+      #{bankroll,jdbcType=VARCHAR}, #{turnover,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, 
+      #{bankAccount,jdbcType=VARCHAR}, #{localTaxNo,jdbcType=VARCHAR}, #{nationalTaxNo,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.situ.crm.pojo.Customer" >
+    insert into customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="managerName != null" >
+        manager_name,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="satisfy != null" >
+        satisfy,
+      </if>
+      <if test="credit != null" >
+        credit,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="postCode != null" >
+        post_code,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="fax != null" >
+        fax,
+      </if>
+      <if test="webSite != null" >
+        web_site,
+      </if>
+      <if test="licenceNo != null" >
+        licence_no,
+      </if>
+      <if test="legalPerson != null" >
+        legal_person,
+      </if>
+      <if test="bankroll != null" >
+        bankroll,
+      </if>
+      <if test="turnover != null" >
+        turnover,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="bankAccount != null" >
+        bank_account,
+      </if>
+      <if test="localTaxNo != null" >
+        local_tax_no,
+      </if>
+      <if test="nationalTaxNo != null" >
+        national_tax_no,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="managerName != null" >
+        #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="satisfy != null" >
+        #{satisfy,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="webSite != null" >
+        #{webSite,jdbcType=VARCHAR},
+      </if>
+      <if test="licenceNo != null" >
+        #{licenceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="bankroll != null" >
+        #{bankroll,jdbcType=VARCHAR},
+      </if>
+      <if test="turnover != null" >
+        #{turnover,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="localTaxNo != null" >
+        #{localTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="nationalTaxNo != null" >
+        #{nationalTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.situ.crm.pojo.CustomerExample" resultType="java.lang.Integer" >
+    select count(*) from customer
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update customer
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.num != null" >
+        num = #{record.num,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.region != null" >
+        region = #{record.region,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managerName != null" >
+        manager_name = #{record.managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.satisfy != null" >
+        satisfy = #{record.satisfy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.credit != null" >
+        credit = #{record.credit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postCode != null" >
+        post_code = #{record.postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null" >
+        fax = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.webSite != null" >
+        web_site = #{record.webSite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.licenceNo != null" >
+        licence_no = #{record.licenceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalPerson != null" >
+        legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankroll != null" >
+        bankroll = #{record.bankroll,jdbcType=VARCHAR},
+      </if>
+      <if test="record.turnover != null" >
+        turnover = #{record.turnover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankName != null" >
+        bank_name = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankAccount != null" >
+        bank_account = #{record.bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.localTaxNo != null" >
+        local_tax_no = #{record.localTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nationalTaxNo != null" >
+        national_tax_no = #{record.nationalTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update customer
+    set id = #{record.id,jdbcType=INTEGER},
+      num = #{record.num,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      manager_name = #{record.managerName,jdbcType=VARCHAR},
+      level = #{record.level,jdbcType=VARCHAR},
+      satisfy = #{record.satisfy,jdbcType=VARCHAR},
+      credit = #{record.credit,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      post_code = #{record.postCode,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      fax = #{record.fax,jdbcType=VARCHAR},
+      web_site = #{record.webSite,jdbcType=VARCHAR},
+      licence_no = #{record.licenceNo,jdbcType=VARCHAR},
+      legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+      bankroll = #{record.bankroll,jdbcType=VARCHAR},
+      turnover = #{record.turnover,jdbcType=VARCHAR},
+      bank_name = #{record.bankName,jdbcType=VARCHAR},
+      bank_account = #{record.bankAccount,jdbcType=VARCHAR},
+      local_tax_no = #{record.localTaxNo,jdbcType=VARCHAR},
+      national_tax_no = #{record.nationalTaxNo,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.situ.crm.pojo.Customer" >
+    update customer
+    <set >
+      <if test="num != null" >
+        num = #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="managerName != null" >
+        manager_name = #{managerName,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="satisfy != null" >
+        satisfy = #{satisfy,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        credit = #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null" >
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null" >
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="webSite != null" >
+        web_site = #{webSite,jdbcType=VARCHAR},
+      </if>
+      <if test="licenceNo != null" >
+        licence_no = #{licenceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        legal_person = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="bankroll != null" >
+        bankroll = #{bankroll,jdbcType=VARCHAR},
+      </if>
+      <if test="turnover != null" >
+        turnover = #{turnover,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAccount != null" >
+        bank_account = #{bankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="localTaxNo != null" >
+        local_tax_no = #{localTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="nationalTaxNo != null" >
+        national_tax_no = #{nationalTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.situ.crm.pojo.Customer" >
+    update customer
+    set num = #{num,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      manager_name = #{managerName,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      satisfy = #{satisfy,jdbcType=VARCHAR},
+      credit = #{credit,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      post_code = #{postCode,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      web_site = #{webSite,jdbcType=VARCHAR},
+      licence_no = #{licenceNo,jdbcType=VARCHAR},
+      legal_person = #{legalPerson,jdbcType=VARCHAR},
+      bankroll = #{bankroll,jdbcType=VARCHAR},
+      turnover = #{turnover,jdbcType=VARCHAR},
+      bank_name = #{bankName,jdbcType=VARCHAR},
+      bank_account = #{bankAccount,jdbcType=VARCHAR},
+      local_tax_no = #{localTaxNo,jdbcType=VARCHAR},
+      national_tax_no = #{nationalTaxNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="findLossCustomer" resultMap="BaseResultMap">
+   	SELECT <include refid="Base_Column_List" /> FROM customer AS c
+ 	WHERE id NOT IN (SELECT customer_id FROM customer_order WHERE DATE_ADD(order_date, INTERVAL 6 MONTH)>NOW())
+ 	AND c.status=0;
+   </select>
+   
+    <select id="findCustomerContribute" resultType="com.situ.crm.vo.CustomerContribute" parameterType="String">
+   	SELECT c.name,SUM(CASE WHEN oi.sum IS NULL THEN 0 ELSE oi.sum END) AS contribute
+	FROM customer AS c LEFT JOIN customer_order AS co ON c.id=co.customer_id
+	LEFT JOIN order_item AS oi ON co.id=oi.order_id 
+	<if test="name!=null and !&quot;&quot;.equals(name.trim())">
+	WHERE c.name like '%${name}%'
+	</if>
+	GROUP BY c.id ORDER BY contribute DESC
+	
+  </select>
+  
+    <!-- 客户构成分析 -->
+  <select id="findCustomerConstitute" resultType="com.situ.crm.vo.CustomerConstitute">
+  	SELECT LEVEL AS CustomerLevel,COUNT(LEVEL) AS CustomerNum
+	FROM customer
+	GROUP BY LEVEL;
+  </select>
+  
+  
+  
+  
+</mapper>

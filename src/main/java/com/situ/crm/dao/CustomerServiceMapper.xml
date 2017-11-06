@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.situ.crm.dao.CustomerServiceMapper" >
+  <resultMap id="BaseResultMap" type="com.situ.crm.pojo.CustomerService" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="service_type" property="serviceType" jdbcType="VARCHAR" />
+    <result column="overview" property="overview" jdbcType="VARCHAR" />
+    <result column="customer" property="customer" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="service_request" property="serviceRequest" jdbcType="VARCHAR" />
+    <result column="create_people" property="createPeople" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="assigner" property="assigner" jdbcType="VARCHAR" />
+    <result column="assign_time" property="assignTime" jdbcType="TIMESTAMP" />
+    <result column="service_deal" property="serviceDeal" jdbcType="VARCHAR" />
+    <result column="service_deal_people" property="serviceDealPeople" jdbcType="VARCHAR" />
+    <result column="service_deal_time" property="serviceDealTime" jdbcType="TIMESTAMP" />
+    <result column="service_deal_result" property="serviceDealResult" jdbcType="VARCHAR" />
+    <result column="satisfy" property="satisfy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, service_type, overview, customer, status, service_request, create_people, create_time, 
+    assigner, assign_time, service_deal, service_deal_people, service_deal_time, service_deal_result, 
+    satisfy
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.situ.crm.pojo.CustomerServiceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from customer_service
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from customer_service
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from customer_service
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.situ.crm.pojo.CustomerServiceExample" >
+    delete from customer_service
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.situ.crm.pojo.CustomerService" >
+    insert into customer_service (id, service_type, overview, 
+      customer, status, service_request, 
+      create_people, create_time, assigner, 
+      assign_time, service_deal, service_deal_people, 
+      service_deal_time, service_deal_result, satisfy
+      )
+    values (#{id,jdbcType=INTEGER}, #{serviceType,jdbcType=VARCHAR}, #{overview,jdbcType=VARCHAR}, 
+      #{customer,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{serviceRequest,jdbcType=VARCHAR}, 
+      #{createPeople,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{assigner,jdbcType=VARCHAR}, 
+      #{assignTime,jdbcType=TIMESTAMP}, #{serviceDeal,jdbcType=VARCHAR}, #{serviceDealPeople,jdbcType=VARCHAR}, 
+      #{serviceDealTime,jdbcType=TIMESTAMP}, #{serviceDealResult,jdbcType=VARCHAR}, #{satisfy,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.situ.crm.pojo.CustomerService" >
+    insert into customer_service
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="serviceType != null" >
+        service_type,
+      </if>
+      <if test="overview != null" >
+        overview,
+      </if>
+      <if test="customer != null" >
+        customer,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="serviceRequest != null" >
+        service_request,
+      </if>
+      <if test="createPeople != null" >
+        create_people,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="assigner != null" >
+        assigner,
+      </if>
+      <if test="assignTime != null" >
+        assign_time,
+      </if>
+      <if test="serviceDeal != null" >
+        service_deal,
+      </if>
+      <if test="serviceDealPeople != null" >
+        service_deal_people,
+      </if>
+      <if test="serviceDealTime != null" >
+        service_deal_time,
+      </if>
+      <if test="serviceDealResult != null" >
+        service_deal_result,
+      </if>
+      <if test="satisfy != null" >
+        satisfy,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="serviceType != null" >
+        #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="overview != null" >
+        #{overview,jdbcType=VARCHAR},
+      </if>
+      <if test="customer != null" >
+        #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceRequest != null" >
+        #{serviceRequest,jdbcType=VARCHAR},
+      </if>
+      <if test="createPeople != null" >
+        #{createPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="assigner != null" >
+        #{assigner,jdbcType=VARCHAR},
+      </if>
+      <if test="assignTime != null" >
+        #{assignTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceDeal != null" >
+        #{serviceDeal,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDealPeople != null" >
+        #{serviceDealPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDealTime != null" >
+        #{serviceDealTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceDealResult != null" >
+        #{serviceDealResult,jdbcType=VARCHAR},
+      </if>
+      <if test="satisfy != null" >
+        #{satisfy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.situ.crm.pojo.CustomerServiceExample" resultType="java.lang.Integer" >
+    select count(*) from customer_service
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update customer_service
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceType != null" >
+        service_type = #{record.serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.overview != null" >
+        overview = #{record.overview,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customer != null" >
+        customer = #{record.customer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceRequest != null" >
+        service_request = #{record.serviceRequest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createPeople != null" >
+        create_people = #{record.createPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.assigner != null" >
+        assigner = #{record.assigner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assignTime != null" >
+        assign_time = #{record.assignTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.serviceDeal != null" >
+        service_deal = #{record.serviceDeal,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceDealPeople != null" >
+        service_deal_people = #{record.serviceDealPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceDealTime != null" >
+        service_deal_time = #{record.serviceDealTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.serviceDealResult != null" >
+        service_deal_result = #{record.serviceDealResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.satisfy != null" >
+        satisfy = #{record.satisfy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update customer_service
+    set id = #{record.id,jdbcType=INTEGER},
+      service_type = #{record.serviceType,jdbcType=VARCHAR},
+      overview = #{record.overview,jdbcType=VARCHAR},
+      customer = #{record.customer,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      service_request = #{record.serviceRequest,jdbcType=VARCHAR},
+      create_people = #{record.createPeople,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      assigner = #{record.assigner,jdbcType=VARCHAR},
+      assign_time = #{record.assignTime,jdbcType=TIMESTAMP},
+      service_deal = #{record.serviceDeal,jdbcType=VARCHAR},
+      service_deal_people = #{record.serviceDealPeople,jdbcType=VARCHAR},
+      service_deal_time = #{record.serviceDealTime,jdbcType=TIMESTAMP},
+      service_deal_result = #{record.serviceDealResult,jdbcType=VARCHAR},
+      satisfy = #{record.satisfy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.situ.crm.pojo.CustomerService" >
+    update customer_service
+    <set >
+      <if test="serviceType != null" >
+        service_type = #{serviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="overview != null" >
+        overview = #{overview,jdbcType=VARCHAR},
+      </if>
+      <if test="customer != null" >
+        customer = #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceRequest != null" >
+        service_request = #{serviceRequest,jdbcType=VARCHAR},
+      </if>
+      <if test="createPeople != null" >
+        create_people = #{createPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="assigner != null" >
+        assigner = #{assigner,jdbcType=VARCHAR},
+      </if>
+      <if test="assignTime != null" >
+        assign_time = #{assignTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceDeal != null" >
+        service_deal = #{serviceDeal,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDealPeople != null" >
+        service_deal_people = #{serviceDealPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDealTime != null" >
+        service_deal_time = #{serviceDealTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceDealResult != null" >
+        service_deal_result = #{serviceDealResult,jdbcType=VARCHAR},
+      </if>
+      <if test="satisfy != null" >
+        satisfy = #{satisfy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.situ.crm.pojo.CustomerService" >
+    update customer_service
+    set service_type = #{serviceType,jdbcType=VARCHAR},
+      overview = #{overview,jdbcType=VARCHAR},
+      customer = #{customer,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      service_request = #{serviceRequest,jdbcType=VARCHAR},
+      create_people = #{createPeople,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      assigner = #{assigner,jdbcType=VARCHAR},
+      assign_time = #{assignTime,jdbcType=TIMESTAMP},
+      service_deal = #{serviceDeal,jdbcType=VARCHAR},
+      service_deal_people = #{serviceDealPeople,jdbcType=VARCHAR},
+      service_deal_time = #{serviceDealTime,jdbcType=TIMESTAMP},
+      service_deal_result = #{serviceDealResult,jdbcType=VARCHAR},
+      satisfy = #{satisfy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByExample1" resultMap="BaseResultMap" parameterType="com.situ.crm.pojo.CustomerServiceExample" >
+  select  * from customer_service where assigner is null
+  </select>
+  
+   <select id="selectByExample2" resultMap="BaseResultMap" parameterType="com.situ.crm.pojo.CustomerServiceExample" >
+  select  * from customer_service where assigner is not null and service_deal is null
+  </select>
+  
+   <select id="selectByExample3" resultMap="BaseResultMap" parameterType="com.situ.crm.pojo.CustomerServiceExample" >
+     SELECT * FROM customer_service WHERE assigner IS NOT NULL AND service_deal is NOT NULL AND service_deal_result IS NULL
+  </select>
+  
+  <!-- 客户服务查询 -->
+  <select id="findkhfw" resultType="com.situ.crm.vo.khfwfx">
+  	SELECT service_type AS serviceType,COUNT(service_type) as num
+	FROM customer_service GROUP BY service_type
+  </select>
+</mapper>
